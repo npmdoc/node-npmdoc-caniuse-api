@@ -1,0 +1,360 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/nyalab/caniuse-api#readme"
+
+    >caniuse-api (v1.6.1)</a>
+</h1>
+<h4>request the caniuse data to check browsers compatibilities</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.caniuse-api">module caniuse-api</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.caniuse-api.find">
+            function <span class="apidocSignatureSpan">caniuse-api.</span>find
+            <span class="apidocSignatureSpan">(query)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.caniuse-api.getBrowserScope">
+            function <span class="apidocSignatureSpan">caniuse-api.</span>getBrowserScope
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.caniuse-api.getLatestStableBrowsers">
+            function <span class="apidocSignatureSpan">caniuse-api.</span>getLatestStableBrowsers
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.caniuse-api.getSupport">
+            function <span class="apidocSignatureSpan">caniuse-api.</span>getSupport
+            <span class="apidocSignatureSpan">(query)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.caniuse-api.isSupported">
+            function <span class="apidocSignatureSpan">caniuse-api.</span>isSupported
+            <span class="apidocSignatureSpan">(feature, browsers)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.caniuse-api.setBrowserScope">
+            function <span class="apidocSignatureSpan">caniuse-api.</span>setBrowserScope
+            <span class="apidocSignatureSpan">(browserList)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">caniuse-api.</span>features</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.caniuse-api" id="apidoc.module.caniuse-api">module caniuse-api</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.caniuse-api.find" id="apidoc.element.caniuse-api.find">
+        function <span class="apidocSignatureSpan">caniuse-api.</span>find
+        <span class="apidocSignatureSpan">(query)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function find(query) {
+  if (typeof query !== &#x22;string&#x22;) {
+    throw new TypeError(&#x22;The `query` parameter should be a string.&#x22;);
+  }
+
+  if (~featuresList.indexOf(query)) {
+    // exact match
+    return query;
+  }
+
+  return featuresList.filter(function (file) {
+    return (0, _utils.contains)(file, query);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+_ask if a feature is supported by some browsers_
+
+```js
+caniuse.isSupported(&#x27;border-radius&#x27;, &#x27;ie 8, ie 9&#x27;) // false
+caniuse.isSupported(&#x27;border-radius&#x27;, &#x27;ie 9&#x27;) // true
+```
+
+#### `caniuse.<span class="apidocCodeKeywordSpan">find</span>(query)`
+
+_search for a caniuse feature name_
+
+Ex:
+
+```js
+caniuse.find(&#x27;radius&#x27;) // [&#x27;border-radius&#x27;]
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.caniuse-api.getBrowserScope" id="apidoc.element.caniuse-api.getBrowserScope">
+        function <span class="apidocSignatureSpan">caniuse-api.</span>getBrowserScope
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getBrowserScope() {
+  return browsers;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  &#x27;ie_mob 11&#x27;,
+  &#x27;ie 11&#x27;,
+  &#x27;firefox 33&#x27;,
+  &#x27;chrome 39&#x27; ]
+*/
+```
+
+#### `caniuse.<span class="apidocCodeKeywordSpan">getBrowserScope</span>()`
+
+_returns a list of browsers currently used for the scope of operations_
+
+```js
+caniuse.getBrowserScope()
+/*
+[ &#x27;safari&#x27;,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.caniuse-api.getLatestStableBrowsers" id="apidoc.element.caniuse-api.getLatestStableBrowsers">
+        function <span class="apidocSignatureSpan">caniuse-api.</span>getLatestStableBrowsers
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getLatestStableBrowsers() {
+  return _browserslist2.default.queries.lastVersions.select(1);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  &#x27;css3-colors&#x27;,
+  &#x27;css3-cursors-newer&#x27;,
+  &#x27;css3-cursors&#x27;,
+  &#x27;css3-tabsize&#x27; ]
+*/
+```
+
+#### `caniuse.<span class="apidocCodeKeywordSpan">getLatestStableBrowsers</span>()`
+
+_get the current version for each browser_
+
+```js
+caniuse.getLatestStableBrowsers()
+/*
+[ &#x27;safari 8&#x27;,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.caniuse-api.getSupport" id="apidoc.element.caniuse-api.getSupport">
+        function <span class="apidocSignatureSpan">caniuse-api.</span>getSupport
+        <span class="apidocSignatureSpan">(query)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getSupport(query) {
+  var feature = void 0;
+  try {
+    feature = features[query];
+  } catch (e) {
+    var res = find(query);
+    if (res.length === 1) return getSupport(res[0]);
+    throw new ReferenceError(&#x22;Please provide a proper feature name. Cannot find &#x22; + query);
+  }
+  return parse(feature, browsers);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+
+## Usage
+
+```js
+const caniuse = require(&#x27;caniuse-api&#x27;)
+
+caniuse.<span class="apidocCodeKeywordSpan">getSupport</span>(&#x27;border-radius&#x27;)
+caniuse.isSupported(&#x27;border-radius&#x27;, &#x27;ie 8, ie 9&#x27;)
+caniuse.setBrowserScope(&#x27;&#x3e; 5%, last 1 version&#x27;)
+caniuse.getSupport(&#x27;border-radius&#x27;)
+// ...
+```
+
+## API
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.caniuse-api.isSupported" id="apidoc.element.caniuse-api.isSupported">
+        function <span class="apidocSignatureSpan">caniuse-api.</span>isSupported
+        <span class="apidocSignatureSpan">(feature, browsers)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function isSupported(feature, browsers) {
+  var data = void 0;
+  try {
+    data = features[feature];
+  } catch (e) {
+    var res = find(feature);
+    if (res.length === 1) {
+      data = features[res[0]];
+    } else {
+      throw new ReferenceError(&#x22;Please provide a proper feature name. Cannot find &#x22; + feature);
+    }
+  }
+
+  return (0, _browserslist2.default)(browsers).map(function (browser) {
+    return browser.split(&#x22; &#x22;);
+  }).every(function (browser) {
+    return data.stats[browser[0]] &#x26;&#x26; data.stats[browser[0]][browser[1]] === &#x22;y&#x22;;
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Usage
+
+```js
+const caniuse = require(&#x27;caniuse-api&#x27;)
+
+caniuse.getSupport(&#x27;border-radius&#x27;)
+caniuse.<span class="apidocCodeKeywordSpan">isSupported</span>(&#x27;border-radius&#x27;, &#x27;ie 8, ie 9&#x27;)
+caniuse.setBrowserScope(&#x27;&#x3e; 5%, last 1 version&#x27;)
+caniuse.getSupport(&#x27;border-radius&#x27;)
+// ...
+```
+
+## API
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.caniuse-api.setBrowserScope" id="apidoc.element.caniuse-api.setBrowserScope">
+        function <span class="apidocSignatureSpan">caniuse-api.</span>setBrowserScope
+        <span class="apidocSignatureSpan">(browserList)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function setBrowserScope(browserList) {
+  browsers = (0, _utils.cleanBrowsersList)(browserList);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+## Usage
+
+```js
+const caniuse = require(&#x27;caniuse-api&#x27;)
+
+caniuse.getSupport(&#x27;border-radius&#x27;)
+caniuse.isSupported(&#x27;border-radius&#x27;, &#x27;ie 8, ie 9&#x27;)
+caniuse.<span class="apidocCodeKeywordSpan">setBrowserScope</span>(&#x27;&#x3e; 5%, last 1 version&#x27;)
+caniuse.getSupport(&#x27;border-radius&#x27;)
+// ...
+```
+
+## API
+
+#### `caniuse.getSupport(feature)`
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
